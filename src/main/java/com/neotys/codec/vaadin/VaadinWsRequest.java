@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
+import static com.neotys.codec.vaadin.VaadinConstants.SYNC_ID;
+
 
 public final class VaadinWsRequest {
 	/**
@@ -56,7 +58,7 @@ public final class VaadinWsRequest {
 		if (this.content == null) {
 			return " ".getBytes();
 		}
-		content.put("syncId", syncId);
+		content.put(SYNC_ID, syncId);
 		String contentAsString = this.content.toString();
 		String output = contentAsString.length() + "|" + contentAsString;
 		return output.getBytes(Charset.forName("UTF-8"));

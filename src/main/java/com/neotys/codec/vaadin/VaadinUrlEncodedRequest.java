@@ -58,9 +58,9 @@ public class VaadinUrlEncodedRequest {
 //
 //		String output = jsonPrettyPrintString;
 
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
-		String[] names = JSONObject.getNames(content);
+		final String[] names = JSONObject.getNames(content);
 		for (int index = 0; index < names.length; index++) {
 			sb.append(names[index]).append("=");
 			try {

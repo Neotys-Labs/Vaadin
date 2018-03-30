@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.neotys.codec.vaadin.VaadinConstants.SYNC_ID;
+
 
 public final class VaadinWsResponse {
 	private int size;
@@ -115,8 +117,8 @@ public final class VaadinWsResponse {
 			MappingUtils.findIds(mapping, content);
 
 
-			if (tempobj.has("syncId")) {
-				NLSyncId = (Integer) tempobj.get("syncId");
+			if (tempobj.has(SYNC_ID)) {
+				NLSyncId = (Integer) tempobj.get(SYNC_ID);
 				if (NLSyncId > 0) {
 					NLSyncId--;
 				}

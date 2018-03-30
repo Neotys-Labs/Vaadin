@@ -8,15 +8,17 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.neotys.codec.vaadin.VaadinConstants.UIDL;
+
 public class VaadinHttpResponse {
 
-	private Map<String, String> mapping = new HashMap<String, String>();
+	private Map<String, String> mapping = new HashMap<>();
 	private JSONObject content;
 
 	public VaadinHttpResponse(final byte[] input) {
 		super();
 		String toParse = null;
-		String StrToremove = "for(;;);";
+		String strToremove = "for(;;);";
 
 		try {
 			toParse = new String(input, "UTF-8");
@@ -24,14 +26,14 @@ public class VaadinHttpResponse {
 			// no op
 		}
 		if (toParse.length() > 0) {
-			int index = toParse.indexOf(StrToremove);
+			int index = toParse.indexOf(strToremove);
 			if (index == -1) {
 				settContent(toParse);
 			} else {
 
 				toParse = toParse.replaceAll("for\\(;;\\);", "");
 				settContent(toParse);
-				// settContent(toParse.substring(index+ StrToremove.length()));
+				// settContent(toParse.substring(index+ strToremove.length()));
 			}
 			computeMapping();
 		}
@@ -43,7 +45,7 @@ public class VaadinHttpResponse {
 
 			JSONObject tmp = content;
 			try {
-				tmp = (JSONObject) content.get("uidl");
+				tmp = (JSONObject) content.get(UIDL);
 			} catch (JSONException e) {
 
 			}
@@ -77,10 +79,10 @@ public class VaadinHttpResponse {
 
 			this.content = new JSONObject(cont);
 			// need to decode recursiv json content in the key uidl
-			if (this.content.has("uidl")) {
-				String uidl = (String) this.content.get("uidl");
+			if (this.content.has(UIDL)) {
+				String uidl = (String) this.content.get(UIDL);
 				if (uidl != null) {
-					this.content.put("uidl", new JSONObject(uidl));
+					this.content.put(UIDL, new JSONObject(uidl));
 				}
 			}
 
