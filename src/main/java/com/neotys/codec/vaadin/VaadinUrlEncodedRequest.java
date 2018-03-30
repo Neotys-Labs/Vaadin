@@ -18,9 +18,9 @@ public class VaadinUrlEncodedRequest {
 		} catch (UnsupportedEncodingException e) {
 			// no op
 		}
-		String[] strPipes = toParse.split("\\&");
-		for (int i = 0; i < strPipes.length; i++) {
-			String[] params = strPipes[i].split("\\=");
+		final String[] strPipes = toParse.split("\\&");
+		for (String strPipe : strPipes) {
+			final String[] params = strPipe.split("\\=");
 			try {
 				if (params.length > 1) {
 					this.content.put(params[0], params[1]);

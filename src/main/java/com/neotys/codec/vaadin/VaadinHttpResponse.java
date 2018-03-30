@@ -33,7 +33,7 @@ public class VaadinHttpResponse {
 
 				toParse = toParse.replaceAll("for\\(;;\\);", "");
 				settContent(toParse);
-				// settContent(toParse.substring(index+ strToremove.length()));
+				// setContent(toParse.substring(index+ strToremove.length()));
 			}
 			computeMapping();
 		}

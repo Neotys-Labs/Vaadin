@@ -9,7 +9,7 @@ import static com.neotys.codec.vaadin.VaadinConstants.SYNC_ID;
 
 public class VaadinWsResponseDecoder extends AbstractDecoder {
 
-	public VaadinWsResponseDecoder(Context context) {
+	public VaadinWsResponseDecoder(final Context context) {
 		super(context);
 	}
 

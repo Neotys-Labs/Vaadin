@@ -9,11 +9,11 @@ import static com.neotys.codec.vaadin.VaadinConstants.SYNC_ID;
 
 public class VaadinWsEncoder extends AbstractEncoder {
 
-	public VaadinWsEncoder(Context context) {
+	public VaadinWsEncoder(final Context context) {
 		super(context);
 	}
 
-	public byte[] apply(Object input) {
+	public byte[] apply(final Object input) {
 		final VaadinWsRequest request = (VaadinWsRequest) input;
 
 		final AtomicInteger syncId = getSyncId();

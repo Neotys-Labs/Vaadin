@@ -5,7 +5,7 @@ import com.neotys.extensions.codec.functions.contextual.Context;
 
 public class VaadinWsRequestDecoder extends AbstractDecoder {
 
-	public VaadinWsRequestDecoder(Context context) {
+	public VaadinWsRequestDecoder(final Context context) {
 		super(context);
 	}
 

@@ -25,13 +25,13 @@ public class VaadinHttpRequest {
 			// no op
 		}
 		if (toParse.contains("\"rpc\":[[")) {
-			settContent(toParse);
+			setContent(toParse);
 		} else {
 			if (toParse.contains("&")) {
 				this.content = new JSONObject();
 				String[] strPipes = toParse.split("\\&");
-				for (int i = 0; i < strPipes.length; i++) {
-					String[] params = strPipes[i].split("\\=");
+				for (String strPipe : strPipes) {
+					final String[] params = strPipe.split("\\=");
 					try {
 						this.content.put(params[0], params[1]);
 					} catch (JSONException e) {
@@ -60,10 +60,9 @@ public class VaadinHttpRequest {
 		return content;
 	}
 
-	public void settContent(String cont) {
+	public void setContent(final String cont) {
 		try {
 			this.content = new JSONObject(cont);
-
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,7 +87,6 @@ public class VaadinHttpRequest {
 			}
 		}
 
-		String output = jsonPrettyPrintString;
-		return output.getBytes(Charset.forName("UTF-8"));
+		return jsonPrettyPrintString.getBytes(Charset.forName("UTF-8"));
 	}
 }

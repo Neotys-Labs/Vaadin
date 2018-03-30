@@ -51,7 +51,7 @@ public final class VaadinWsResponse {
 				index_remove = strPipes[1].indexOf(strToremove);
 				strResult = strPipes[1].substring(index_remove + strToremove.length());
 				settContent(strResult);
-				//settContent(strPipes[1].substring(jsonstring+strToremove.length()));
+				//setContent(strPipes[1].substring(jsonstring+strToremove.length()));
 			}
 		} else {
 			this.content = new JSONObject();

@@ -5,7 +5,7 @@ import com.neotys.extensions.codec.functions.Namer;
 public class VaadinNamer implements Namer {
 
 	@Override
-	public String apply(Object input) {
+	public String apply(final Object input) {
 		final VaadinWsRequest request = (VaadinWsRequest) input;
 		String jsonAsString = request.getContent().toString();
 		if (jsonAsString.contains("setText")) {

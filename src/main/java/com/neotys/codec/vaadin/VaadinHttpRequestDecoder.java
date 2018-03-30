@@ -4,7 +4,7 @@ import com.neotys.extensions.codec.functions.contextual.AbstractDecoder;
 import com.neotys.extensions.codec.functions.contextual.Context;
 
 public class VaadinHttpRequestDecoder extends AbstractDecoder {
-	public VaadinHttpRequestDecoder(Context context) {
+	public VaadinHttpRequestDecoder(final Context context) {
 		super(context);
 	}
 
