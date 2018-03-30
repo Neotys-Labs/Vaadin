@@ -1,6 +1,5 @@
 package com.neotys.codec.vaadin;
 
-
 import com.neotys.extensions.codec.functions.contextual.AbstractEncoder;
 import com.neotys.extensions.codec.functions.contextual.Context;
 

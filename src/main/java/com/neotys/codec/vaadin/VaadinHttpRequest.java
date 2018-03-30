@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
-
 public class VaadinHttpRequest {
 	private String VaadingSecurityToken;
 	private JSONObject content;
@@ -30,11 +29,11 @@ public class VaadinHttpRequest {
 		} else {
 			if (toParse.contains("&")) {
 				this.content = new JSONObject();
-				String[] StrPipes = toParse.split("\\&");
-				for (int i = 0; i < StrPipes.length; i++) {
-					String[] Params = StrPipes[i].split("\\=");
+				String[] strPipes = toParse.split("\\&");
+				for (int i = 0; i < strPipes.length; i++) {
+					String[] params = strPipes[i].split("\\=");
 					try {
-						this.content.put(Params[0], Params[1]);
+						this.content.put(params[0], params[1]);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

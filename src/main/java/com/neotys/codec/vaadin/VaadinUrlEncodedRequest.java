@@ -18,14 +18,14 @@ public class VaadinUrlEncodedRequest {
 		} catch (UnsupportedEncodingException e) {
 			// no op
 		}
-		String[] StrPipes = toParse.split("\\&");
-		for (int i = 0; i < StrPipes.length; i++) {
-			String[] Params = StrPipes[i].split("\\=");
+		String[] strPipes = toParse.split("\\&");
+		for (int i = 0; i < strPipes.length; i++) {
+			String[] params = strPipes[i].split("\\=");
 			try {
-				if (Params.length > 1) {
-					this.content.put(Params[0], Params[1]);
+				if (params.length > 1) {
+					this.content.put(params[0], params[1]);
 				} else {
-					this.content.put(Params[0], "");
+					this.content.put(params[0], "");
 				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

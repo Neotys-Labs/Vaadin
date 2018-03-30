@@ -9,12 +9,15 @@ import java.util.Map;
 
 class MappingUtils {
 
+	/**
+	 * Run recursively through the JSON to associate html ids to Vaadin rpc ids.
+	 */
 	static void findIds(Map<String, String> mapping, Object object) {
 		if (object instanceof JSONObject) {
-			JSONObject jsonObject = (JSONObject) object;
+			final JSONObject jsonObject = (JSONObject) object;
 			final Iterator it = jsonObject.keys();
 			while (it.hasNext()) {
-				Object key = it.next();
+				final Object key = it.next();
 				final Object value = jsonObject.get(key.toString());
 				if (value instanceof JSONObject) {
 					final String id = getId((JSONObject) value);
@@ -28,17 +31,17 @@ class MappingUtils {
 				}
 			}
 		} else if (object instanceof JSONArray) {
-			JSONArray array = (JSONArray) object;
+			final JSONArray array = (JSONArray) object;
 			for (int i = 0; i < array.length(); i++) {
 				findIds(mapping, array.get(i));
 			}
 		}
 	}
 
-	private static String getId(JSONObject value) {
+	private static String getId(final JSONObject value) {
 		try {
 			return value.getString("id");
-		} catch (JSONException e) {
+		} catch (final JSONException e) {
 			return null;
 		}
 	}

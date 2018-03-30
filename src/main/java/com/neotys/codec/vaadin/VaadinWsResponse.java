@@ -1,6 +1,7 @@
 package com.neotys.codec.vaadin;
 
 
+import com.google.common.annotations.VisibleForTesting;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,30 +26,30 @@ public final class VaadinWsResponse {
 	public VaadinWsResponse(final byte[] input) {
 		super();
 		String toParse = null;
-		String StrToremove = "for(;;);";
+		String strToremove = "for(;;);";
 
 		try {
 			toParse = new String(input, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// no op
 		}
-		String[] StrPipes = toParse.split("\\|");
-		String StrResult;
+		String[] strPipes = toParse.split("\\|");
+		String strResult;
 		int index_remove;
 
 		//---debug to see why we don't get the size of the response in the replay
-		size = Integer.valueOf(StrPipes[0]);
+		size = Integer.valueOf(strPipes[0]);
 
-		if (StrPipes.length < 3) {
-			int jsonstring = StrPipes[1].indexOf(StrToremove);
+		if (strPipes.length < 3) {
+			int jsonstring = strPipes[1].indexOf(strToremove);
 			if (jsonstring == -1) {
-				settContent(StrPipes[1]);
+				settContent(strPipes[1]);
 			} else {
 
-				index_remove = StrPipes[1].indexOf(StrToremove);
-				StrResult = StrPipes[1].substring(index_remove + StrToremove.length());
-				settContent(StrResult);
-				//settContent(StrPipes[1].substring(jsonstring+StrToremove.length()));
+				index_remove = strPipes[1].indexOf(strToremove);
+				strResult = strPipes[1].substring(index_remove + strToremove.length());
+				settContent(strResult);
+				//settContent(strPipes[1].substring(jsonstring+strToremove.length()));
 			}
 		} else {
 			this.content = new JSONObject();
@@ -57,30 +58,30 @@ public final class VaadinWsResponse {
 			Pattern reg = Pattern.compile(pattern);
 
 			// Now create matcher object.
-			Matcher testreg = reg.matcher(StrPipes[2]);
+			Matcher testreg = reg.matcher(strPipes[2]);
 			if (testreg.find()) {
 				try {
-					this.content.put("X-Atmosphere-tracking-id", StrPipes[1]);
+					this.content.put("X-Atmosphere-tracking-id", strPipes[1]);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
-					this.content.put("TimeStamp", StrPipes[2]);
+					this.content.put("TimeStamp", strPipes[2]);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else {
 
-				index_remove = StrPipes[1].indexOf(StrToremove);
+				index_remove = strPipes[1].indexOf(strToremove);
 
-				StrResult = StrPipes[1].substring(index_remove + StrToremove.length());
-				for (int i = 2; i < StrPipes.length; i++) {
-					StrResult = StrResult + StrPipes[i];
+				strResult = strPipes[1].substring(index_remove + strToremove.length());
+				for (int i = 2; i < strPipes.length; i++) {
+					strResult = strResult + strPipes[i];
 				}
 
-				settContent(StrResult);
+				settContent(strResult);
 
 
 			}
@@ -101,11 +102,11 @@ public final class VaadinWsResponse {
 
 
 		try {
-			String StrPrefix = "{";
-			int in_index = jsonContentAsString.indexOf(StrPrefix);
+			String strprefix = "{";
+			int inIndex = jsonContentAsString.indexOf(strprefix);
 
 			JSONObject tempobj = new JSONObject(unbracedJsonAstring);
-			if (in_index > 0) {
+			if (inIndex > 0) {
 				jsonContentAsString = "{ \"VaadinMessage\" :" + jsonContentAsString;
 				jsonContentAsString = jsonContentAsString + "}";
 			}
@@ -138,5 +139,8 @@ public final class VaadinWsResponse {
 		return content;
 	}
 
-
+	@VisibleForTesting
+	Map<String, String> getMapping() {
+		return mapping;
+	}
 }
