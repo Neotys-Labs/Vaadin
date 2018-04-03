@@ -3,10 +3,8 @@ package com.neotys.codec.vaadin;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-
 import static com.neotys.codec.vaadin.VaadinConstants.SYNC_ID;
+import static com.neotys.codec.vaadin.VaadinConstants.VAADIN_CHARSET;
 
 
 public final class VaadinWsRequest {
@@ -17,21 +15,9 @@ public final class VaadinWsRequest {
 
 	public VaadinWsRequest(final byte[] input) {
 		super();
-		String toParse = null;
-		/* to be fixed
-		 * String csrfToken;
-		 * String rpc;
-		 * String syncId;
-		 */
-		try {
-			toParse = new String(input, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// no op
-		}
+		final String toParse = new String(input, VAADIN_CHARSET);
 		int index = toParse.indexOf("|");
 		setContent(toParse.substring(index + 1));
-
-
 	}
 
 	public JSONObject getContent() {
@@ -42,7 +28,6 @@ public final class VaadinWsRequest {
 		try {
 			this.content = new JSONObject(cont);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -55,7 +40,7 @@ public final class VaadinWsRequest {
 		content.put(SYNC_ID, syncId);
 		final String contentAsString = this.content.toString();
 		final String output = contentAsString.length() + "|" + contentAsString;
-		return output.getBytes(Charset.forName("UTF-8"));
+		return output.getBytes(VAADIN_CHARSET);
 	}
 
 

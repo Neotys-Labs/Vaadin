@@ -4,37 +4,24 @@ import com.google.common.annotations.VisibleForTesting;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.neotys.codec.vaadin.VaadinConstants.UIDL;
+import static com.neotys.codec.vaadin.VaadinConstants.*;
 
 public class VaadinHttpResponse {
-
-	private Map<String, String> mapping = new HashMap<>();
+	private final Map<String, String> mapping = new HashMap<>();
 	private JSONObject content;
 
 	public VaadinHttpResponse(final byte[] input) {
 		super();
-		String toParse = null;
-		String strToremove = "for(;;);";
-
-		try {
-			toParse = new String(input, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// no op
-		}
+		String toParse = new String(input, VAADIN_CHARSET);
 		if (toParse.length() > 0) {
-			int index = toParse.indexOf(strToremove);
-			if (index == -1) {
-				settContent(toParse);
-			} else {
-
-				toParse = toParse.replaceAll("for\\(;;\\);", "");
-				settContent(toParse);
-				// setContent(toParse.substring(index+ strToremove.length()));
+			int index = toParse.indexOf(TO_REMOVE);
+			if (index != -1) {
+				toParse = toParse.replaceAll(REGEX_TO_REMOVE, "");
 			}
+			setContent(toParse);
 			computeMapping();
 		}
 
@@ -62,7 +49,7 @@ public class VaadinHttpResponse {
 		MappingUtils.findIds(mapping, content);
 	}
 
-	public void settContent(String cont) {
+	private void setContent(String cont) {
 		try {
 			this.content = new JSONObject();
 			String StrPrefix = "{";
@@ -87,7 +74,6 @@ public class VaadinHttpResponse {
 			}
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

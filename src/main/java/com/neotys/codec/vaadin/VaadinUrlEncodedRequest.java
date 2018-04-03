@@ -3,21 +3,14 @@ package com.neotys.codec.vaadin;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
+import static com.neotys.codec.vaadin.VaadinConstants.VAADIN_CHARSET;
 
 public class VaadinUrlEncodedRequest {
 	private final JSONObject content;
 
 	public VaadinUrlEncodedRequest(final byte[] input) {
-		String toParse = null;
-
 		this.content = new JSONObject();
-		try {
-			toParse = new String(input, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// no op
-		}
+		String toParse = new String(input, VAADIN_CHARSET);
 		final String[] strPipes = toParse.split("\\&");
 		for (String strPipe : strPipes) {
 			final String[] params = strPipe.split("\\=");
@@ -28,7 +21,6 @@ public class VaadinUrlEncodedRequest {
 					this.content.put(params[0], "");
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -72,6 +64,6 @@ public class VaadinUrlEncodedRequest {
 				sb.append("&");
 			}
 		}
-		return sb.toString().getBytes(Charset.forName("UTF-8"));
+		return sb.toString().getBytes(VAADIN_CHARSET);
 	}
 }

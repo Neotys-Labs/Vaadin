@@ -5,20 +5,19 @@ import com.google.common.annotations.VisibleForTesting;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.neotys.codec.vaadin.VaadinConstants.SYNC_ID;
+import static com.neotys.codec.vaadin.VaadinConstants.*;
 
 
 public final class VaadinWsResponse {
 	private int size;
-	private int NLSyncId;
+	private int nlSincId;
 	private JSONObject content;
-	private Map<String, String> mapping = new HashMap<String, String>();
+	private Map<String, String> mapping = new HashMap<>();
 
 	/**
 	 * WS Vaadim WS Request based on Atmosphere.
@@ -27,30 +26,22 @@ public final class VaadinWsResponse {
 	 */
 	public VaadinWsResponse(final byte[] input) {
 		super();
-		String toParse = null;
-		String strToremove = "for(;;);";
+		final String toParse = new String(input, VAADIN_CHARSET);
+		final String[] strPipes = toParse.split("\\|");
 
-		try {
-			toParse = new String(input, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// no op
-		}
-		String[] strPipes = toParse.split("\\|");
-		String strResult;
 		int index_remove;
 
 		//---debug to see why we don't get the size of the response in the replay
 		size = Integer.valueOf(strPipes[0]);
 
 		if (strPipes.length < 3) {
-			int jsonstring = strPipes[1].indexOf(strToremove);
+			int jsonstring = strPipes[1].indexOf(TO_REMOVE);
 			if (jsonstring == -1) {
-				settContent(strPipes[1]);
+				setContent(strPipes[1]);
 			} else {
 
-				index_remove = strPipes[1].indexOf(strToremove);
-				strResult = strPipes[1].substring(index_remove + strToremove.length());
-				settContent(strResult);
+				index_remove = strPipes[1].indexOf(TO_REMOVE);
+				setContent(strPipes[1].substring(index_remove + TO_REMOVE.length()));
 				//setContent(strPipes[1].substring(jsonstring+strToremove.length()));
 			}
 		} else {
@@ -65,26 +56,23 @@ public final class VaadinWsResponse {
 				try {
 					this.content.put("X-Atmosphere-tracking-id", strPipes[1]);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					this.content.put("TimeStamp", strPipes[2]);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else {
 
-				index_remove = strPipes[1].indexOf(strToremove);
+				index_remove = strPipes[1].indexOf(TO_REMOVE);
 
-				strResult = strPipes[1].substring(index_remove + strToremove.length());
+				final StringBuilder strResult = new StringBuilder(strPipes[1].substring(index_remove + TO_REMOVE.length()));
 				for (int i = 2; i < strPipes.length; i++) {
-					strResult = strResult + strPipes[i];
+					strResult.append(strPipes[i]);
 				}
 
-				settContent(strResult);
-
+				setContent(strResult.toString());
 
 			}
 		}
@@ -97,7 +85,7 @@ public final class VaadinWsResponse {
 	}
 
 	// jsonContentAsString = [{...}]
-	public void settContent(String jsonContentAsString) {
+	public void setContent(String jsonContentAsString) {
 
 		// get sync id from cont
 		final String unbracedJsonAstring = removeBraces(jsonContentAsString);
@@ -118,16 +106,15 @@ public final class VaadinWsResponse {
 
 
 			if (tempobj.has(SYNC_ID)) {
-				NLSyncId = (Integer) tempobj.get(SYNC_ID);
-				if (NLSyncId > 0) {
-					NLSyncId--;
+				nlSincId = (Integer) tempobj.get(SYNC_ID);
+				if (nlSincId > 0) {
+					nlSincId--;
 				}
 			} else
-				NLSyncId = -1;
+				nlSincId = -1;
 
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
