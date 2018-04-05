@@ -22,6 +22,6 @@ This Data Format Extension allows you to load test [Vaadin](https://vaadin.com/)
 1. Import the framework
     * Go to NeoLoad preferences (Edit/Preferences)
     * On the left panel select the Frameworks section.
-    * Click the Import button to add the NeoLoad Vaadin framework.
+    * Click the Import button to add the [NeoLoad Vaadin framework](resources/Vaadin.xml).
     
 <p align="center"><img src="/screenshots/framework.png" alt="Frameworks" /></p>
