@@ -15,7 +15,7 @@ import static com.neotys.codec.vaadin.VaadinConstants.*;
 
 public final class VaadinWsResponse {
 	private int size;
-	private int nlSincId;
+	private int NLSyncId;
 	private JSONObject content;
 	private Map<String, String> mapping = new HashMap<>();
 
@@ -106,12 +106,12 @@ public final class VaadinWsResponse {
 
 
 			if (tempobj.has(SYNC_ID)) {
-				nlSincId = (Integer) tempobj.get(SYNC_ID);
-				if (nlSincId > 0) {
-					nlSincId--;
+				NLSyncId = (Integer) tempobj.get(SYNC_ID);
+				if (NLSyncId > 0) {
+					NLSyncId--;
 				}
 			} else
-				nlSincId = -1;
+				NLSyncId = -1;
 
 
 		} catch (JSONException e) {
