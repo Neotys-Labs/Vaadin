@@ -25,3 +25,19 @@ This Data Format Extension allows you to load test [Vaadin](https://vaadin.com/)
     * Click the Import button to add the [NeoLoad Vaadin framework](files/Vaadin.xml.zip).
     
 <p align="center"><img src="/screenshots/framework.png" alt="Frameworks" /></p>
+
+## Record in NeoLoad
+
+Once installed, how to record Vaadin based applications:
+
+1. Read the NeoLoad documentation to see [How start a record](https://www.neotys.com/documents/doc/neoload/latest/en/html/#752.htm)
+1. During the post-recording wizard, search for dynamic parameters
+<p align="center"><img src="/screenshots/dynamic-parameters.png" alt="Dynamic parameters" /></p>
+1. Apply Vaadin framework parameters.
+<p align="center"><img src="/screenshots/selection-parameters.png" alt="Selection parameters" /></p>
+1. Vaadin request in NeoLoad User Path:
+    * All Vaadin HTTP requests or websocket requests are displayed by clicking the icon
+    * Websocket channels are presented with the icon name/location
+
+## Design in NeoLoad
+
