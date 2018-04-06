@@ -55,7 +55,7 @@ In order to ease correlation, the Vaadin Data Format Extension build a map assoc
 
 An example of a correlation of the login field on a login page.
 In the Vaadin Data Format Extension response, there is a section *mapping*:
-```
+<pre><code>
  <mapping>
     <entry>
       <String>login-login-button</String>
@@ -81,7 +81,7 @@ In the Vaadin Data Format Extension response, there is a section *mapping*:
       <String>login-view</String>
       <String>5</String>
     </entry>
-    **<entry>
+    <b><entry></b>
       <String>login-username</String>
       <String>8</String>
     </entry>**
@@ -90,7 +90,7 @@ In the Vaadin Data Format Extension response, there is a section *mapping*:
       <String>7</String>
     </entry>
   </mapping>
-  ```
+  </code><pre>
   We can see that the ui field with the id *login-username* is associated to the RPC id *8*.
   
   Let's see how to extract this id with a NeoLoad extractor:
@@ -109,7 +109,7 @@ In the Vaadin Data Format Extension response, there is a section *mapping*:
     <p align="center"><img src="/screenshots/select-dynamic.png" alt="Select" /></p>
 
 Now the variable is injected the request using the rpc id and the variable extractor will be automatically created and injected in next recording of the application.
-```
+<pre><code>
 <com.neotys.codec.vaadin.VaadinWsRequest>
   <size>Size will be automatically computed by Neoload before sending the request.</size>
   <content>
@@ -128,7 +128,7 @@ Now the variable is injected the request using the rpc id and the variable extra
           <myArrayList>
             <org.json.JSONArray>
               <myArrayList>
-                **<String>${login-username}</String>**
+                <b><String>${login-username}</String></b>
                 <String>com.vaadin.shared.ui.textfield.AbstractTextFieldServerRpc</String>
                 <String>setText</String>
                 <org.json.JSONArray>
@@ -149,4 +149,4 @@ Now the variable is injected the request using the rpc id and the variable extra
     </map>
   </content>
 </com.neotys.codec.vaadin.VaadinWsRequest>
-```
+</code><pre>
