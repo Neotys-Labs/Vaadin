@@ -55,6 +55,7 @@ In order to ease correlation, the Vaadin Data Format Extension build a map assoc
 
 An example of a correlation of the login field on a login page.
 In the Vaadin Data Format Extension response, there is a section *mapping*:
+```
  <mapping>
     <entry>
       <String>login-login-button</String>
@@ -80,35 +81,35 @@ In the Vaadin Data Format Extension response, there is a section *mapping*:
       <String>login-view</String>
       <String>5</String>
     </entry>
-    *<entry>
+    **<entry>
       <String>login-username</String>
       <String>8</String>
-    </entry>*
+    </entry>**
     <entry>
       <String>login-logo</String>
       <String>7</String>
     </entry>
   </mapping>
-  
+  ```
   We can see that the ui field with the id *login-username* is associated to the RPC id *8*.
   
   Let's see how to extract this id with a NeoLoad extractor:
   
   1. Create a variable extracting the RPC id of your object.
     <p align="center"><img src="/screenshots/extractor.png" alt="Variable Extractor" /></p>
-  1. Then move as framework parameter the created Variable Extractor.
+  1. Then **Move as framework parameter** the created Variable Extractor.
     <p align="center"><img src="/screenshots/move-as-framework.png" alt="Move as framework" /></p>
-  1. Add it to the Vaadin framework.
+  1. Add it to the **Vaadin** framework.
     <p align="center"><img src="/screenshots/framework-vaadin.png" alt="Vaadin Framework" /></p>
-  1. Define injection settings.
+  1. Define **Injection settings**.
     <p align="center"><img src="/screenshots/inject.png" alt="Injection settings" /></p>
-  1. Search for Dynamic Parameters.
+  1. Search for **Dynamic Parameters**.
     <p align="center"><img src="/screenshots/search.png" alt="Search" /></p>
   1. Select the parameter and click on Finish.
     <p align="center"><img src="/screenshots/select-dynamic.png" alt="Select" /></p>
 
 Now the variable is injected the request using the rpc id and the variable extractor will be automatically created and injected in next recording of the application.
-
+```
 <com.neotys.codec.vaadin.VaadinWsRequest>
   <size>Size will be automatically computed by Neoload before sending the request.</size>
   <content>
@@ -148,3 +149,4 @@ Now the variable is injected the request using the rpc id and the variable extra
     </map>
   </content>
 </com.neotys.codec.vaadin.VaadinWsRequest>
+```
