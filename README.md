@@ -54,7 +54,7 @@ In order to ease correlation, the Vaadin Data Format Extension build a map assoc
 ### Example
 
 An example of a correlation of the login field on a login page.
-In the Vaadin Data Format Extension response, there is a section *mapping*:
+In the Vaadin Data Format Extension response, there is a section **mapping**:
 ```
  <mapping>
     <entry>
@@ -91,7 +91,7 @@ In the Vaadin Data Format Extension response, there is a section *mapping*:
     </entry>
   </mapping>
   ```
-  We can see that the ui field with the id *login-username* is associated to the RPC id *8*.
+  We can see that the ui field with the id **login-username** is associated to the RPC id **8**.
   
   Let's see how to extract this id with a NeoLoad extractor:
   
