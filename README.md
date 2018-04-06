@@ -18,7 +18,7 @@ This Data Format Extension allows you to load test [Vaadin](https://vaadin.com/)
 ## Prerequisites
 
 * Vaadin 7.+ or 8.+.
-* Vaadin UI objects as Button or TextField must have ids (the "setId" method must be used on theses objects).
+* Vaadin UI objects as Button or TextField must have IDs (the "setId" method must be used on theses objects).
 
 ## Installation
 
@@ -46,10 +46,10 @@ Once installed, how to record Vaadin based applications:
 
 ## Design in NeoLoad
 
-Every action done on the UI Web application will refer to a Vaadin RPC id. Those ids must be correlated to ensure the stability of the User Profile.
-To manage these ids, you need to create NeoLoad variables with NeoLoad [Variable Extractors](https://www.neotys.com/documents/doc/neoload/latest/en/html/#962.htm).
+Every action done on the UI Web application will refer to a Vaadin RPC ID. Those IDs must be correlated to ensure the stability of the User Profile.
+To manage these IDs, you need to create NeoLoad variables with NeoLoad [Variable Extractors](https://www.neotys.com/documents/doc/neoload/latest/en/html/#962.htm).
 
-In order to ease correlation, the Vaadin Data Format Extension builds a map associating UI ids with RPC ids and adds this map to the response.
+In order to ease correlation, the Vaadin Data Format Extension builds a map associating UI IDs with RPC IDs and adds this map to the response.
 
 ### Example
 
@@ -91,11 +91,11 @@ In the Vaadin Data Format Extension response, there is a section **mapping**:
     </entry>
   </mapping>
   ```
-  We can see that the **UI** field with the id "login-username" is associated to the RPC id "8".
+  We can see that the **UI** field with the ID "login-username" is associated to the RPC ID "8".
   
-  Let's see how to extract this id with a NeoLoad extractor:
+  Let's see how to extract this ID with a NeoLoad extractor:
   
-  1. Create a variable extracting the RPC id of your object.
+  1. Create a variable extracting the RPC ID of your object.
     <p align="center"><img src="/screenshots/extractor.png" alt="Variable Extractor" /></p>
   1. Then **Move as framework parameter** the created Variable Extractor.
     <p align="center"><img src="/screenshots/move-as-framework.png" alt="Move as framework" /></p>
@@ -108,7 +108,7 @@ In the Vaadin Data Format Extension response, there is a section **mapping**:
   1. Select the "login-username" parameter and click on **Finish**.
     <p align="center"><img src="/screenshots/select-dynamic.png" alt="Select" /></p>
 
-Now that the variable is injected the request using the rpc id and the variable extractor will be automatically created and injected in the next recording of the application.
+Now that the variable is injected the request using the rpc ID and the variable extractor will be automatically created and injected in the next recording of the application.
 ```
 <com.neotys.codec.vaadin.VaadinWsRequest>
   <size>Size will be automatically computed by Neoload before sending the request.</size>
