@@ -81,10 +81,10 @@ In the Vaadin Data Format Extension response, there is a section *mapping*:
       <String>login-view</String>
       <String>5</String>
     </entry>
-    **<entry>
+    <entry>
       <String>login-username</String>
       <String>8</String>
-    </entry>**
+    </entry>
     <entry>
       <String>login-logo</String>
       <String>7</String>
