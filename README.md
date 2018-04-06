@@ -17,7 +17,8 @@ This Data Format Extension allows you to load test [Vaadin](https://vaadin.com/)
 
 ## Prerequisites
 
-Vaadin UI objects as Button or TextField must have ids (the setId method must be used on theses objects).
+* Vaadin 7.+ or 8.+.
+* Vaadin UI objects as Button or TextField must have ids (the setId method must be used on theses objects).
 
 ## Installation
 
@@ -48,6 +49,102 @@ Once installed, how to record Vaadin based applications:
 Every action done on the UI Web application will refer to a Vaadin RPC id. Those ids must be correlated to ensure the stability of the User Profile.
 To manage these ids, you need to create NeoLoad variables with NeoLoad [Variable Extractors](https://www.neotys.com/documents/doc/neoload/latest/en/html/#962.htm).
 
-In order to ease correlation, the Vaadin Data Format Extension build a map associating UI ids to RPC ids and add it to the response.
+In order to ease correlation, the Vaadin Data Format Extension build a map associating UI ids to RPC ids and add this map to the response.
 
 ### Example
+
+An example of a correlation of the login field on a login page.
+In the Vaadin Data Format Extension response, there is a section *mapping*:
+ <mapping>
+    <entry>
+      <String>login-login-button</String>
+      <String>11</String>
+    </entry>
+    <entry>
+      <String>login-reset-password</String>
+      <String>10</String>
+    </entry>
+    <entry>
+      <String>login-view-container</String>
+      <String>4</String>
+    </entry>
+    <entry>
+      <String>progress-layout-id</String>
+      <String>12</String>
+    </entry>
+    <entry>
+      <String>login-password</String>
+      <String>9</String>
+    </entry>
+    <entry>
+      <String>login-view</String>
+      <String>5</String>
+    </entry>
+    *<entry>
+      <String>login-username</String>
+      <String>8</String>
+    </entry>*
+    <entry>
+      <String>login-logo</String>
+      <String>7</String>
+    </entry>
+  </mapping>
+  
+  We can see that the ui field with the id *login-username* is associated to the RPC id *8*.
+  
+  Let's see how to extract this id with a NeoLoad extractor:
+  
+  1. Create a variable extracting the RPC id of your object.
+    <p align="center"><img src="/screenshots/extractor.png" alt="Variable Extractor" /></p>
+  1. Then move as framework parameter the created Variable Extractor.
+    <p align="center"><img src="/screenshots/move-as-framework.png" alt="Move as framework" /></p>
+  1. Add it to the Vaadin framework.
+    <p align="center"><img src="/screenshots/framework-vaadin.png" alt="Vaadin Framework" /></p>
+  1. Define injection settings.
+    <p align="center"><img src="/screenshots/inject.png" alt="Injection settings" /></p>
+  1. Search for Dynamic Parameters.
+    <p align="center"><img src="/screenshots/search.png" alt="Search" /></p>
+  1. Select the parameter and click on Finish.
+    <p align="center"><img src="/screenshots/select-dynamic.png" alt="Select" /></p>
+
+Now the variable is injected the request using the rpc id and the variable extractor will be automatically created and injected in next recording of the application.
+
+<com.neotys.codec.vaadin.VaadinWsRequest>
+  <size>Size will be automatically computed by Neoload before sending the request.</size>
+  <content>
+    <map>
+      <entry>
+        <String>csrfToken</String>
+        <String>${crstoken}</String>
+      </entry>
+      <entry>
+        <String>clientId</String>
+        <int>1</int>
+      </entry>
+      <entry>
+        <String>rpc</String>
+        <org.json.JSONArray>
+          <myArrayList>
+            <org.json.JSONArray>
+              <myArrayList>
+                **<String>${login-username}</String>**
+                <String>com.vaadin.shared.ui.textfield.AbstractTextFieldServerRpc</String>
+                <String>setText</String>
+                <org.json.JSONArray>
+                  <myArrayList>
+                    <String></String>
+                    <int>0</int>
+                  </myArrayList>
+                </org.json.JSONArray>
+              </myArrayList>
+            </org.json.JSONArray>
+          </myArrayList>
+        </org.json.JSONArray>
+      </entry>
+      <entry>
+        <String>syncId</String>
+        <int>${SYNCID}</int>
+      </entry>
+    </map>
+  </content>
+</com.neotys.codec.vaadin.VaadinWsRequest>
