@@ -84,13 +84,13 @@ In the Vaadin Data Format Extension response, there is a section *mapping*:
     <b><entry></b>
       <String>login-username</String>
       <String>8</String>
-    </entry>**
+    </entry>
     <entry>
       <String>login-logo</String>
       <String>7</String>
     </entry>
   </mapping>
-  </code><pre>
+  </code></pre>
   We can see that the ui field with the id *login-username* is associated to the RPC id *8*.
   
   Let's see how to extract this id with a NeoLoad extractor:
@@ -149,4 +149,4 @@ Now the variable is injected the request using the rpc id and the variable extra
     </map>
   </content>
 </com.neotys.codec.vaadin.VaadinWsRequest>
-</code><pre>
+</code></pre>
